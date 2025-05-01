@@ -1,0 +1,320 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="QRDERModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Ana_Yemek">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Kategori" Type="nvarchar" MaxLength="50" />
+          <Property Name="Menu_Kategori" Type="nvarchar" MaxLength="50" />
+          <Property Name="TercihAdi" Type="varchar" MaxLength="100" />
+          <Property Name="Fiyat" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'QRDER.dbo.Ara_Yemek' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Ara_Yemek">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Kategori_ID" Type="int" />
+          <Property Name="Menu_Kategori_ID" Type="int" />
+          <Property Name="Tercih_Adi" Type="nvarchar" MaxLength="50" />
+          <Property Name="Fiyat" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'QRDER.dbo.İçecekler' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="İçecekler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Kategori" Type="int" />
+          <Property Name="ID_Menu_Kategori" Type="int" />
+          <Property Name="Tercihler" Type="nvarchar" MaxLength="50" />
+          <Property Name="Fiyat" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="Kategoriler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KategoriAdi" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="QRVerisi">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Numara" Type="varchar" MaxLength="50" />
+          <Property Name="QRResim" Type="varbinary(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'QRDER.dbo.Tatlılar' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Tatlılar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Kategori" Type="int" />
+          <Property Name="ID_Menu_Kategori" Type="int" />
+          <Property Name="Tercih_Adi" Type="nvarchar" MaxLength="50" />
+          <Property Name="Fiyat" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="Tercihler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="KategoriID" Type="int" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MenuAdi" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK__Menuler__Kategor__173876EA">
+          <End Role="Kategoriler" Type="Self.Kategoriler" Multiplicity="0..1" />
+          <End Role="Tercihler" Type="Self.Tercihler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategoriler">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tercihler">
+              <PropertyRef Name="KategoriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QRDERModelStoreContainer">
+          <EntitySet Name="Ana_Yemek" EntityType="Self.Ana_Yemek" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kategoriler" EntityType="Self.Kategoriler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QRVerisi" EntityType="Self.QRVerisi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tercihler" EntityType="Self.Tercihler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ara_Yemek" EntityType="Self.Ara_Yemek" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Ara_Yemek].[ID] AS [ID], 
+    [Ara_Yemek].[Kategori_ID] AS [Kategori_ID], 
+    [Ara_Yemek].[Menu_Kategori_ID] AS [Menu_Kategori_ID], 
+    [Ara_Yemek].[Tercih_Adi] AS [Tercih_Adi], 
+    [Ara_Yemek].[Fiyat] AS [Fiyat]
+    FROM [dbo].[Ara_Yemek] AS [Ara_Yemek]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="İçecekler" EntityType="Self.İçecekler" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [İçecekler].[ID] AS [ID], 
+    [İçecekler].[ID_Kategori] AS [ID_Kategori], 
+    [İçecekler].[ID_Menu_Kategori] AS [ID_Menu_Kategori], 
+    [İçecekler].[Tercihler] AS [Tercihler], 
+    [İçecekler].[Fiyat] AS [Fiyat]
+    FROM [dbo].[İçecekler] AS [İçecekler]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Tatlılar" EntityType="Self.Tatlılar" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Tatlılar].[ID] AS [ID], 
+    [Tatlılar].[ID_Kategori] AS [ID_Kategori], 
+    [Tatlılar].[ID_Menu_Kategori] AS [ID_Menu_Kategori], 
+    [Tatlılar].[Tercih_Adi] AS [Tercih_Adi], 
+    [Tatlılar].[Fiyat] AS [Fiyat]
+    FROM [dbo].[Tatlılar] AS [Tatlılar]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__Menuler__Kategor__173876EA" Association="Self.FK__Menuler__Kategor__173876EA">
+            <End Role="Kategoriler" EntitySet="Kategoriler" />
+            <End Role="Tercihler" EntitySet="Tercihler" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="QRDERModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Ana_Yemek">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Kategori" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Menu_Kategori" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TercihAdi" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Fiyat" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="Kategoriler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KategoriAdi" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tercihler" Relationship="Self.FK__Menuler__Kategor__173876EA" FromRole="Kategoriler" ToRole="Tercihler" />
+        </EntityType>
+        <EntityType Name="QRVerisi">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Numara" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="QRResim" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Tercihler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="KategoriID" Type="Int32" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MenuAdi" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Kategoriler" Relationship="Self.FK__Menuler__Kategor__173876EA" FromRole="Tercihler" ToRole="Kategoriler" />
+        </EntityType>
+        <EntityType Name="Ara_Yemek">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Kategori_ID" Type="Int32" />
+          <Property Name="Menu_Kategori_ID" Type="Int32" />
+          <Property Name="Tercih_Adi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Fiyat" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="İçecekler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Kategori" Type="Int32" />
+          <Property Name="ID_Menu_Kategori" Type="Int32" />
+          <Property Name="Tercihler" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Fiyat" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="Tatlılar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Kategori" Type="Int32" />
+          <Property Name="ID_Menu_Kategori" Type="Int32" />
+          <Property Name="Tercih_Adi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Fiyat" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <Association Name="FK__Menuler__Kategor__173876EA">
+          <End Role="Kategoriler" Type="Self.Kategoriler" Multiplicity="0..1" />
+          <End Role="Tercihler" Type="Self.Tercihler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategoriler">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tercihler">
+              <PropertyRef Name="KategoriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QRDEREntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Ana_Yemek" EntityType="Self.Ana_Yemek" />
+          <EntitySet Name="Kategoriler" EntityType="Self.Kategoriler" />
+          <EntitySet Name="QRVerisi" EntityType="Self.QRVerisi" />
+          <EntitySet Name="Tercihler" EntityType="Self.Tercihler" />
+          <EntitySet Name="Ara_Yemek" EntityType="Self.Ara_Yemek" />
+          <EntitySet Name="İçecekler" EntityType="Self.İçecekler" />
+          <EntitySet Name="Tatlılar" EntityType="Self.Tatlılar" />
+          <AssociationSet Name="FK__Menuler__Kategor__173876EA" Association="Self.FK__Menuler__Kategor__173876EA">
+            <End Role="Kategoriler" EntitySet="Kategoriler" />
+            <End Role="Tercihler" EntitySet="Tercihler" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="QRDERModelStoreContainer" CdmEntityContainer="QRDEREntities">
+          <EntitySetMapping Name="Ana_Yemek">
+            <EntityTypeMapping TypeName="QRDERModel.Ana_Yemek">
+              <MappingFragment StoreEntitySet="Ana_Yemek">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Kategori" ColumnName="Kategori" />
+                <ScalarProperty Name="Menu_Kategori" ColumnName="Menu_Kategori" />
+                <ScalarProperty Name="TercihAdi" ColumnName="TercihAdi" />
+                <ScalarProperty Name="Fiyat" ColumnName="Fiyat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kategoriler">
+            <EntityTypeMapping TypeName="QRDERModel.Kategoriler">
+              <MappingFragment StoreEntitySet="Kategoriler">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="KategoriAdi" ColumnName="KategoriAdi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QRVerisi">
+            <EntityTypeMapping TypeName="QRDERModel.QRVerisi">
+              <MappingFragment StoreEntitySet="QRVerisi">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Numara" ColumnName="Numara" />
+                <ScalarProperty Name="QRResim" ColumnName="QRResim" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tercihler">
+            <EntityTypeMapping TypeName="QRDERModel.Tercihler">
+              <MappingFragment StoreEntitySet="Tercihler">
+                <ScalarProperty Name="KategoriID" ColumnName="KategoriID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="MenuAdi" ColumnName="MenuAdi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ara_Yemek">
+            <EntityTypeMapping TypeName="QRDERModel.Ara_Yemek">
+              <MappingFragment StoreEntitySet="Ara_Yemek">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Kategori_ID" ColumnName="Kategori_ID" />
+                <ScalarProperty Name="Menu_Kategori_ID" ColumnName="Menu_Kategori_ID" />
+                <ScalarProperty Name="Tercih_Adi" ColumnName="Tercih_Adi" />
+                <ScalarProperty Name="Fiyat" ColumnName="Fiyat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="İçecekler">
+            <EntityTypeMapping TypeName="QRDERModel.İçecekler">
+              <MappingFragment StoreEntitySet="İçecekler">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ID_Kategori" ColumnName="ID_Kategori" />
+                <ScalarProperty Name="ID_Menu_Kategori" ColumnName="ID_Menu_Kategori" />
+                <ScalarProperty Name="Tercihler" ColumnName="Tercihler" />
+                <ScalarProperty Name="Fiyat" ColumnName="Fiyat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tatlılar">
+            <EntityTypeMapping TypeName="QRDERModel.Tatlılar">
+              <MappingFragment StoreEntitySet="Tatlılar">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ID_Kategori" ColumnName="ID_Kategori" />
+                <ScalarProperty Name="ID_Menu_Kategori" ColumnName="ID_Menu_Kategori" />
+                <ScalarProperty Name="Tercih_Adi" ColumnName="Tercih_Adi" />
+                <ScalarProperty Name="Fiyat" ColumnName="Fiyat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
