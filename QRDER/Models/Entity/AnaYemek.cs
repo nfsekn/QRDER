@@ -7,6 +7,7 @@ namespace QRDER.Models.Entity
 {
     public partial class AnaYemek
     {
+        //hello
         public int Id { get; set; }
         public int Kategori { get; set; }
         public int MenuKategori { get; set; }
