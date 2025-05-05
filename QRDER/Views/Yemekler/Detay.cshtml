@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Yemek Detay";
+}
+
+<h2>Yemek Detayı</h2>
+
+<form method="post" asp-action="SepeteEkle">
+    <label>
+        Hamburger Seçin:
+        <select name="secim">
+            <option value="Tavuk">Tavuk Burger</option>
+            <option value="Et">Et Burger</option>
+            <option value="Vegan">Vegan Burger</option>
+        </select>
+    </label>
+    <br />
+    <input type="submit" value="Sepete Ekle" />
+</form>
