@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace QRDER.Models.Entity
 {
+    //efkar
     public partial class AnaYemek
     {
         //hello
